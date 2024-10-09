@@ -1,23 +1,58 @@
-.DS_Store
-node_modules
-/dist
+# Node modules
+node_modules/
 
+# Diretório de build (gerado após rodar `npm run build` ou `yarn build`)
+dist/
 
-# local env files
-.env.local
-.env.*.local
+# Arquivos de lock do gerenciador de pacotes
+# Dependendo do gerenciador de pacotes utilizado, inclua o arquivo de lock correspondente
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
 
-# Log files
+# Diretório de cache do gerenciador de pacotes
+# Pode incluir outros caches se estiver usando npm, yarn ou pnpm
+.npm/
+.yarn/
+.pnp/
+.pnp.js
+
+# Arquivos de configuração do editor (VSCode, WebStorm, etc.)
+.vscode/
+.idea/
+
+# Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# Editor directories and files
-.idea
-.vscode
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+# Arquivos de ambiente local
+.env
+.env.local
+.env.*.local
+
+# Arquivos de cache e temporários do Vue
+.vuepress/
+.temp/
+.cache/
+
+# Arquivos de cache do TypeScript
+tsconfig.tsbuildinfo
+
+# Arquivos do teste (coverage e snapshots)
+coverage/
+*.lcov
+*.lcov.*
+__snapshots__/
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos de cache do Webpack (gerados em alguns projetos Vue)
+.cache-loader/
+.waste/
+
+# Logs do servidor de desenvolvimento
+*.log
