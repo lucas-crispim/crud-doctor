@@ -1,16 +1,13 @@
 <template>
-  <div class="container">
-    <div class="jumbotron">
-      <p class="lead">
-        Cadastre médicos e gerencie a lista de profissionais
-      </p>
-      <hr class="my-4">
-    </div>
+  <v-container class="pa-0" align="center" justify="start">
+    <v-card class="pa-2 mb-2">
+      <FormComponent @add-doctor="handleAddDoctor" />
+    </v-card>
 
-    <FormComponent @add-doctor="handleAddDoctor" />
-    <hr class="my-4">
-    <ListComponent :doctors="doctors" @remove-doctor="handleRemoveDoctor" />
-  </div>
+    <v-card class="pa-2 mb-6">
+      <ListComponent :doctors="doctors" @remove-doctor="handleRemoveDoctor" />
+    </v-card>
+  </v-container>
 </template>
 
 <script>
@@ -38,3 +35,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.pa-0 {
+  padding-top: 0 !important; /* Remove o padding padrão */
+}
+</style>

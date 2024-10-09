@@ -1,52 +1,44 @@
 <template>
-  <div>
-    <h3>Adicionar Médico</h3>
-    <form @submit.prevent="addDoctor">
-      <div class="form-group">
-        <label for="name">Nome</label>
-        <input
-          type="text"
-          id="name"
-          class="form-control"
-          v-model="name"
-          placeholder="Digite o nome"
-          autocomplete="off"
-          required
-        />
-      </div>
+  <v-form @submit.prevent="addDoctor">
+    <h3 class="mb-4">Adicionar Médico</h3>
 
-      <div class="form-group">
-        <label for="crm">Número do CRM</label>
-        <input
-          type="text"
-          id="crm"
-          class="form-control"
-          v-model="crm"
-          placeholder="Digite o número do CRM"
-          autocomplete="off"
-          required
-        />
-      </div>
+    <v-text-field
+      v-model="name"
+      label="Nome"
+      placeholder="Digite o nome"
+      outlined
+      autocomplete="off"
+      required
+    ></v-text-field>
 
-      <div class="form-group">
-        <label for="state">Estado do CRM (UF)</label>
-        <select id="state" class="form-control" v-model="state" required>
-          <option value="" disabled>Selecione o Estado</option>
-          <option v-for="uf in ufs" :key="uf" :value="uf">{{ uf }}</option>
-        </select>
-      </div>
+    <v-text-field
+      v-model="crm"
+      label="Número do CRM"
+      placeholder="Digite o número do CRM"
+      outlined
+      autocomplete="off"
+      required
+    ></v-text-field>
 
-      <div class="form-group">
-        <label for="status">Situação</label>
-        <select id="status" class="form-control" v-model="status" required>
-          <option value="Ativo">Ativo</option>
-          <option value="Inativo">Inativo</option>
-        </select>
-      </div>
+    <v-select
+      v-model="state"
+      :items="ufs"
+      label="Estado do CRM (UF)"
+      placeholder="Selecione o Estado"
+      outlined
+      required
+    ></v-select>
 
-      <button type="submit" class="btn btn-success mt-2">Adicionar Médico</button>
-    </form>
-  </div>
+    <v-select
+      v-model="status"
+      :items="['Ativo', 'Inativo']"
+      label="Situação"
+      outlined
+      required
+    ></v-select>
+
+    <v-btn color="success" class="mt-4" @click="addDoctor">Adicionar Médico</v-btn>
+  </v-form>
 </template>
 
 <script>
@@ -54,11 +46,12 @@ export default {
   name: 'FormComponent',
   data() {
     return {
-      name: '',      
-      crm: '',      
-      state: '',    
-      status: 'Ativo', 
-      ufs: ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'] // Lista de estados (UF)
+      name: '', // Campo para o nome do médico
+      crm: '', // Campo para o número do CRM
+      state: '', // Campo para o estado do CRM (UF)
+      status: 'Ativo', // Campo para a situação (Ativo/Inativo)
+      // Lista de estados (UF)
+      ufs: ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO']
     }
   },
   methods: {
@@ -71,7 +64,7 @@ export default {
           status: this.status
         }
         this.$emit('add-doctor', doctor)
-        this.resetForm()
+        this.resetForm() // Limpa o formulário
       }
     },
     resetForm() {
