@@ -1,6 +1,6 @@
 <template>
-  <v-form @submit.prevent="addDoctor">
-    <h3 class="mb-4">Adicionar Médico</h3>
+  <v-form @submit.prevent="addOrUpdateDoctor">
+    <h3 class="mb-4">{{ isEdit ? 'Editar Médico' : 'Adicionar Médico' }}</h3>
 
     <v-text-field
       v-model="name"
@@ -37,41 +37,75 @@
       required
     ></v-select>
 
-    <v-btn color="success" class="mt-4" @click="addDoctor">Adicionar Médico</v-btn>
+    <v-btn color="success" class="mt-4" @click="addOrUpdateDoctor">
+      {{ isEdit ? 'Salvar Médico' : 'Adicionar Médico' }}
+    </v-btn>
+
+    <v-btn v-if="isEdit" color="grey" class="mt-4 ml-2" @click="cancelEdit">
+      Cancelar
+    </v-btn>
   </v-form>
 </template>
 
 <script>
 export default {
   name: 'FormComponent',
+  props: {
+    doctor: {
+      type: Object,
+      default: () => null
+    }
+  },
   data() {
     return {
-      name: '', 
-      crm: '', 
-      state: '', 
+      name: '',
+      crm: '',
+      state: '',
       status: 'Ativo',
-      // Lista de estados (UF)
+      isEdit: false,
       ufs: ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO']
     }
   },
+  watch: {
+    doctor: {
+      immediate: true,
+      handler(newDoctor) {
+        if (newDoctor) {
+          this.name = newDoctor.name
+          this.crm = newDoctor.crm
+          this.state = newDoctor.state
+          this.status = newDoctor.status
+          this.isEdit = true
+        } else {
+          this.resetForm()
+        }
+      }
+    }
+  },
   methods: {
-    addDoctor() {
+    addOrUpdateDoctor() {
       if (this.name && this.crm && this.state) {
         const doctor = {
+          id: this.doctor ? this.doctor.id : null,
           name: this.name,
           crm: this.crm,
           state: this.state,
           status: this.status
         }
-        this.$emit('add-doctor', doctor)
+        this.$emit('save-doctor', doctor)
         this.resetForm()
       }
+    },
+    cancelEdit() {
+      this.resetForm();
+      this.$emit('cancel-edit');
     },
     resetForm() {
       this.name = ''
       this.crm = ''
       this.state = ''
       this.status = 'Ativo'
+      this.isEdit = false
     }
   }
 }

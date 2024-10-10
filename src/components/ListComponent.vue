@@ -3,7 +3,7 @@
     <h3 class="mb-1">Lista de Médicos</h3>
 
     <v-data-table
-      v-model:page="page"
+      v-model:page="currentPage"
       :items="paginatedDoctors"
       :headers="headers"
       :items-per-page="itemsPerPage"
@@ -13,7 +13,7 @@
         <v-btn color="red" class="mx-2" @click="openDeleteDialog(index + startIndex)">
           Deletar
         </v-btn>
-        <v-btn color="green" @click="removeDoctor(index + startIndex)">
+        <v-btn color="green" @click="editDoctor(index + startIndex)">
           Editar
         </v-btn>
       </template>
@@ -101,6 +101,9 @@ export default {
       if (this.paginatedDoctors.length === 0 && this.currentPage > 1) {
         this.currentPage--
       }
+    },
+    editDoctor(index) {
+      this.$emit('edit-doctor', index)
     }
   }
 }
