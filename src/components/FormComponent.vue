@@ -46,10 +46,10 @@ export default {
   name: 'FormComponent',
   data() {
     return {
-      name: '', // Campo para o nome do médico
-      crm: '', // Campo para o número do CRM
-      state: '', // Campo para o estado do CRM (UF)
-      status: 'Ativo', // Campo para a situação (Ativo/Inativo)
+      name: '', 
+      crm: '', 
+      state: '', 
+      status: 'Ativo',
       // Lista de estados (UF)
       ufs: ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO']
     }
@@ -64,7 +64,7 @@ export default {
           status: this.status
         }
         this.$emit('add-doctor', doctor)
-        this.resetForm() // Limpa o formulário
+        this.resetForm()
       }
     },
     resetForm() {

@@ -1,27 +1,21 @@
 <template>
   <v-container>
-    <h3 class="mb-4">Lista de Médicos</h3>
+    <h3 class="mb-1">Lista de Médicos</h3>
 
     <v-data-table
       :items="paginatedDoctors"
       :headers="headers"
-      class="elevation-1"
     >
-      <template #body="{ items }">
-        <tbody>
-          <tr v-for="(doctor, index) in items" :key="index">
-            <td>{{ doctor.name }}</td>
-            <td>{{ doctor.crm }}</td>
-            <td>{{ doctor.state }}</td>
-            <td>{{ doctor.status }}</td>
-            <td>
-              <v-btn color="error" @click="removeDoctor(index + startIndex)" icon>
-                <v-icon>mdi-delete</v-icon>
-              </v-btn>
-            </td>
-          </tr>
-        </tbody>
+
+      <template v-slot:[`item.actions`]="{ index }">
+        <v-btn color="red" @click="removeDoctor(index + startIndex)">
+          Delete
+        </v-btn>
+        <v-btn color="green" @click="removeDoctor(index + startIndex)">
+          Edit
+        </v-btn>
       </template>
+
     </v-data-table>
 
     <v-pagination
@@ -48,11 +42,11 @@ export default {
       currentPage: 1,       
       itemsPerPage: 4,      
       headers: [            
-        { text: 'Nome', value: 'name' },
-        { text: 'CRM', value: 'crm' },
-        { text: 'Estado', value: 'state' },
-        { text: 'Situação', value: 'status' },
-        { text: 'Ações', value: 'actions', sortable: false }
+        { key: 'name', title: 'Nome' },
+        { key: 'crm', title: 'CRM' },
+        { key: 'state', title: 'Estado' },
+        { key: 'status', title: 'Situação' },
+        { key: 'actions', title: 'Ações', sortable: false }
       ]
     }
   },
@@ -85,7 +79,7 @@ export default {
 
 <style scoped>
 .v-data-table {
-  margin-top: 16px;
+  margin-top: 10px;
 }
 .v-pagination {
   justify-content: center;
