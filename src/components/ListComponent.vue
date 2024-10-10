@@ -3,28 +3,33 @@
     <h3 class="mb-1">Lista de Médicos</h3>
 
     <v-data-table
+      v-model:page="page"
       :items="paginatedDoctors"
       :headers="headers"
+      :items-per-page="itemsPerPage"
     >
 
       <template v-slot:[`item.actions`]="{ index }">
-        <v-btn color="red" @click="removeDoctor(index + startIndex)">
-          Delete
+        <v-btn color="red" class="mx-2" @click="removeDoctor(index + startIndex)">
+          Deletar
         </v-btn>
         <v-btn color="green" @click="removeDoctor(index + startIndex)">
-          Edit
+          Editar
         </v-btn>
       </template>
 
+
+      <template v-slot:bottom>
+        <div class="text-center pt-2">
+          <v-pagination
+            v-model="currentPage"
+            :length="totalPages"
+            :total-visible="5"
+          ></v-pagination>
+        </div>
+      </template>
     </v-data-table>
 
-    <v-pagination
-      v-model="currentPage"
-      :length="totalPages"
-      color="primary"
-      class="mt-4"
-      @input="goToPage"
-    ></v-pagination>
   </v-container>
 </template>
 
@@ -40,7 +45,7 @@ export default {
   data() {
     return {
       currentPage: 1,       
-      itemsPerPage: 4,      
+      itemsPerPage: 2,      
       headers: [            
         { key: 'name', title: 'Nome' },
         { key: 'crm', title: 'CRM' },
