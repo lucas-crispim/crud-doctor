@@ -1,14 +1,12 @@
 import axios from 'axios';
 
-// Configura o cliente axios com a URL base
 const apiClient = axios.create({
-  baseURL: 'https://seu-endpoint.com/api', // Substitua pelo seu endpoint
+  baseURL: 'http://localhost',
   headers: {
     'Content-Type': 'application/json'
   }
 });
 
-// Interceptor de resposta para tratar erros
 apiClient.interceptors.response.use(
   response => response,
   error => {
